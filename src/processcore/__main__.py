@@ -14,7 +14,11 @@ def main():
         engine = Engine()
         process = Process(name="demo")
         result = engine.run(process)
-        print(f"Process '{result.name}' finished with state: {result.state}")
+        if result.state == "completed":
+            print(f"✔ Process '{result.name}' completed successfully")
+        else:
+            print(f"✖ Process '{result.name}' failed: {result.error}")
+
     else:
         print(f"Unknown command: {command}")
         sys.exit(1)
