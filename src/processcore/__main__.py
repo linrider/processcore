@@ -1,6 +1,7 @@
 import sys
 from processcore.engine import Engine
 from processcore.process import Process
+from processcore.state import ProcessState
 
 
 def main():
@@ -14,7 +15,7 @@ def main():
         engine = Engine()
         process = Process(name="demo")
         result = engine.run(process)
-        if result.state == "completed":
+        if result.state == ProcessState.COMPLETED:
             print(f"✔ Process '{result.name}' completed successfully")
             return 0
         else:
