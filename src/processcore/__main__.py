@@ -6,7 +6,7 @@ from processcore.process import Process
 def main():
     if len(sys.argv) < 2:
         print("Usage: processcore run")
-        sys.exit(1)
+        return 1
         
     command = sys.argv[1]
     
@@ -16,12 +16,18 @@ def main():
         result = engine.run(process)
         if result.state == "completed":
             print(f"✔ Process '{result.name}' completed successfully")
+            return 0
         else:
             print(f"✖ Process '{result.name}' failed: {result.error}")
+            return 1
 
     else:
         print(f"Unknown command: {command}")
-        sys.exit(1)
+        return 1
         
 if __name__ == "__main__":
-    main()
+    try:
+        sys.exit(main())
+    except Exception as e:
+        print(f"Fatal error: {e}")
+        sys.exit(2)
